@@ -1,0 +1,10 @@
+/* styles in src/style directory are applied to the whole page */
+
+a {
+  color: #03A9F4;
+}
+
+footer {
+  text-align: center;
+  font-size: 0.8em;
+}
