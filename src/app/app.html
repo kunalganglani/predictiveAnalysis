@@ -1,10 +1,3 @@
-<!-- <main> -->
-  <!-- <h1 class="title">Hello from Angular !</h1> -->
-  
-  <!-- Images (and assets) are parsed and loaded from within the public directory -->
-  <!-- <img src="/img/logo.png"> -->
-<!-- </main> -->
-
 <md-content>
   <md-toolbar>
     <div class="md-toolbar-tools">
@@ -12,7 +5,7 @@
         <md-icon md-font-set="material-icons">menu</md-icon>
       </md-button>
       <h2>
-        <span>My App</span>
+        <span>Angular Preditive Analysis</span>
       </h2>
       <span flex></span>
       <md-button class="md-icon-button" aria-label="menu">
@@ -29,4 +22,57 @@
       </md-button>
     </div>
   </md-toolbar>
+  
+  <div layout="row">
+      <div flex>
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Prediction Period</label>
+            <md-datepicker ng-model="user.myDate" md-placeholder="Enter date"></md-datepicker>
+          </md-input-container>
+        </div>
+    <div flex>
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Prediction Period</label>
+        <md-select ng-model="user.duration">
+          <md-option value="6 Months">
+            6 Months
+          </md-option>
+          <md-option value="1 Month">
+            1 Month
+          </md-option>
+        </md-select>
+      </md-input-container>
+    </div>
+  </div>
+
+  <div layout="row">
+      <md-table-container>
+          <table md-table md-row-select multiple ng-model="selected" md-progress="promise">
+            <thead md-head md-order="query.order" md-on-reorder="getDesserts">
+              <tr md-row>
+                <th md-column md-order-by="nameToLower"><span>Dessert (100g serving)</span></th>
+                <th md-column md-numeric md-order-by="calories.value"><span>Calories</span></th>
+                <th md-column md-numeric>Fat (g)</th>
+                <th md-column md-numeric>Carbs (g)</th>
+                <th md-column md-numeric>Protein (g)</th>
+                <th md-column md-numeric>Sodium (mg)</th>
+                <th md-column md-numeric>Calcium (%)</th>
+                <th md-column md-numeric>Iron (%)</th>
+              </tr>
+            </thead>
+            <tbody md-body>
+              <tr md-row md-select="dessert" md-select-id="name" md-auto-select ng-repeat="dessert in desserts.data">
+                <td md-cell>{{dessert.name}}</td>
+                <td md-cell>{{dessert.calories.value}}</td>
+                <td md-cell>{{dessert.fat.value | number: 1}}</td>
+                <td md-cell>{{dessert.carbs.value}}</td>
+                <td md-cell>{{dessert.protein.value | number: 1}}</td>
+                <td md-cell>{{dessert.sodium.value}}</td>
+                <td md-cell>{{dessert.calcium.value}}{{dessert.calcium.unit}}</td>
+                <td md-cell>{{dessert.iron.value}}{{dessert.iron.unit}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </md-table-container>
+  </div>
 </md-content>

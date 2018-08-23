@@ -21,7 +21,10 @@
   "homepage": "https://github.com/preboot/angularjs-webpack",
   "dependencies": {
     "angular": "^1.7.0",
-    "angular-material": "^1.1.10"
+    "angular-animate": "^1.7.3",
+    "angular-aria": "^1.7.3",
+    "angular-material": "^1.1.10",
+    "angular-material-data-table": "^0.10.10"
   },
   "devDependencies": {
     "ajv": "^6.4.0",
