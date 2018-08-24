@@ -8,3 +8,13 @@ footer {
   text-align: center;
   font-size: 0.8em;
 }
+
+
+.md-table-pagination .label{
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 12px;
+}
+
+.employeeReportContainer{
+  padding: 2em;
+}

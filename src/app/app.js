@@ -22,14 +22,31 @@ angular.module(appModule, [
   })
   .controller('AppCtrl', AppCtrl)
 
-  .controller('nutritionController', ['$mdEditDialog', '$q', '$scope', '$timeout', function ($mdEditDialog, $q, $scope, $timeout) {
+  .controller('nutritionController', ['$mdEditDialog', '$q', '$scope', '$http', '$timeout', function ($mdEditDialog, $q, $scope,$http, $timeout) {
     'use strict';
+    $http.get("http://localhost:3000/users").then(function (response) {
+      $scope.tableData = {
+        count: response.data.length,
+        data: response.data
+      };
+      var idArr = $scope.tableData.data.map(item => item.id);
+      getMoreDetails(idArr);
+    });
+    function getMoreDetails(idArr) {
+      var firstFive = idArr.splice(0,5);
+      $http.get(`https://td-predictions-staging.herokuapp.com/fire-quit-in-6m/2018-06-01/?user_ids=${firstFive.join()}`).then(
+          function(response){
+            console.log(response);
+          }
+        )
+    }
+    
     
     $scope.selected = [];
     $scope.limitOptions = [5, 10, 15];
     
     $scope.options = {
-      rowSelection: true,
+      rowSelection: false,
       multiSelect: true,
       autoSelect: true,
       decapitate: false,
@@ -45,108 +62,11 @@ angular.module(appModule, [
       page: 1
     };
     
-    $scope.desserts = {
-      "count": 9,
-      "data": [
-        {
-          "name": "Frozen yogurt",
-          "type": "Ice cream",
-          "calories": { "value": 159.0 },
-          "fat": { "value": 6.0 },
-          "carbs": { "value": 24.0 },
-          "protein": { "value": 4.0 },
-          "sodium": { "value": 87.0 },
-          "calcium": { "value": 14.0 },
-          "iron": { "value": 1.0 }
-        }, {
-          "name": "Ice cream sandwich",
-          "type": "Ice cream",
-          "calories": { "value": 237.0 },
-          "fat": { "value": 9.0 },
-          "carbs": { "value": 37.0 },
-          "protein": { "value": 4.3 },
-          "sodium": { "value": 129.0 },
-          "calcium": { "value": 8.0 },
-          "iron": { "value": 1.0 }
-        }, {
-          "name": "Eclair",
-          "type": "Pastry",
-          "calories": { "value":  262.0 },
-          "fat": { "value": 16.0 },
-          "carbs": { "value": 24.0 },
-          "protein": { "value":  6.0 },
-          "sodium": { "value": 337.0 },
-          "calcium": { "value":  6.0 },
-          "iron": { "value": 7.0 }
-        }, {
-          "name": "Cupcake",
-          "type": "Pastry",
-          "calories": { "value":  305.0 },
-          "fat": { "value": 3.7 },
-          "carbs": { "value": 67.0 },
-          "protein": { "value": 4.3 },
-          "sodium": { "value": 413.0 },
-          "calcium": { "value": 3.0 },
-          "iron": { "value": 8.0 }
-        }, {
-          "name": "Jelly bean",
-          "type": "Candy",
-          "calories": { "value":  375.0 },
-          "fat": { "value": 0.0 },
-          "carbs": { "value": 94.0 },
-          "protein": { "value": 0.0 },
-          "sodium": { "value": 50.0 },
-          "calcium": { "value": 0.0 },
-          "iron": { "value": 0.0 }
-        }, {
-          "name": "Lollipop",
-          "type": "Candy",
-          "calories": { "value": 392.0 },
-          "fat": { "value": 0.2 },
-          "carbs": { "value": 98.0 },
-          "protein": { "value": 0.0 },
-          "sodium": { "value": 38.0 },
-          "calcium": { "value": 0.0 },
-          "iron": { "value": 2.0 }
-        }, {
-          "name": "Honeycomb",
-          "type": "Other",
-          "calories": { "value": 408.0 },
-          "fat": { "value": 3.2 },
-          "carbs": { "value": 87.0 },
-          "protein": { "value": 6.5 },
-          "sodium": { "value": 562.0 },
-          "calcium": { "value": 0.0 },
-          "iron": { "value": 45.0 }
-        }, {
-          "name": "Donut",
-          "type": "Pastry",
-          "calories": { "value": 452.0 },
-          "fat": { "value": 25.0 },
-          "carbs": { "value": 51.0 },
-          "protein": { "value": 4.9 },
-          "sodium": { "value": 326.0 },
-          "calcium": { "value": 2.0 },
-          "iron": { "value": 22.0 }
-        }, {
-          "name": "KitKat",
-          "type": "Candy",
-          "calories": { "value": 518.0 },
-          "fat": { "value": 26.0 },
-          "carbs": { "value": 65.0 },
-          "protein": { "value": 7.0 },
-          "sodium": { "value": 54.0 },
-          "calcium": { "value": 12.0 },
-          "iron": { "value": 6.0 }
-        }
-      ]
-    };
-    
-    $scope.editComment = function (event, dessert) {
+    $scope.editComment = function (event, employee) {
       event.stopPropagation(); // in case autoselect is enabled
       
       var editDialog = {
-        modelValue: dessert.comment,
+        modelValue: employee.comment,
         placeholder: 'Add a comment',
         save: function (input) {
           if(input.$modelValue === 'Donald Trump') {
@@ -154,9 +74,9 @@ angular.module(appModule, [
             return $q.reject();
           }
           if(input.$modelValue === 'Bernie Sanders') {
-            return dessert.comment = 'FEEL THE BERN!'
+            return employee.comment = 'FEEL THE BERN!'
           }
-          dessert.comment = input.$modelValue;
+          employee.comment = input.$modelValue;
         },
         targetEvent: event,
         title: 'Add a comment',
