@@ -46,12 +46,12 @@
   </div>
 
   <div layout="row">
-      <md-table-container>
-          <table md-table md-row-select multiple ng-model="selected" md-progress="promise">
+      <md-table-container >
+          <table md-table ng-model="selected" md-progress="promise">
             <thead md-head md-order="query.order" md-on-reorder="getDesserts">
               <tr md-row>
                 <th md-column md-order-by="nameToLower"><span>Name</span></th>
-                <th md-column md-numeric md-order-by="calories.value"><span>Probability of Leaving the company</span></th>
+                <th md-column md-numeric md-order-by="id"><span>Probability of Leaving the company</span></th>
                 <th md-column md-numeric>Fire vs Quit</th> 
               </tr>
             </thead>
