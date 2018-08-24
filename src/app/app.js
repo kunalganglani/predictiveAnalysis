@@ -22,7 +22,7 @@ angular.module(appModule, [
   })
   .controller('AppCtrl', AppCtrl)
 
-  .controller('nutritionController', ['$mdEditDialog', '$q', '$scope', '$http', '$timeout', function ($mdEditDialog, $q, $scope,$http, $timeout) {
+  .controller('employeeTableController', ['$mdEditDialog', '$q', '$scope', '$http', '$timeout', function ($mdEditDialog, $q, $scope,$http, $timeout) {
     'use strict';
     $http.get("http://localhost:3000/users").then(function (response) {
       $scope.tableData = {
