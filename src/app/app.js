@@ -11,7 +11,12 @@ let app = () => {
 const MODULE_NAME = 'app';
 angular.module(MODULE_NAME, [
   'ngMaterial', 'ngRoute', 'md.data.table'
-])
+]).config(['$mdThemingProvider', function ($mdThemingProvider) {
+  'use strict';
+  
+  $mdThemingProvider.theme('default')
+    .primaryPalette('blue');
+}])
   .directive('app', app)
   .component('navToolbar', {
     template: require('./navToolbar/navToolbar.html')
