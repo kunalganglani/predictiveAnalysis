@@ -18,3 +18,6 @@ footer {
 .employeeReportContainer{
   padding: 2em;
 }
+thead th.columnCenter.md-column.ng-isolate-scope.md-numeric{
+  text-align: center;
+}

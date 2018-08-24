@@ -1,4 +1,5 @@
 import angular from 'angular';
+require('angular-chart.js');
 import { AppCtrl } from './app.controller';
 import { employeeTableController } from './employeeTable.controller';
 import '../style/app.css';
@@ -11,7 +12,7 @@ let app = () => {
 };
 const appModule = 'app';
 angular.module(appModule, [
-  'ngMaterial', 'ngRoute', 'md.data.table'
+  'ngMaterial', 'ngRoute', 'md.data.table','chart.js'
 ]).directive('app', app)
   .component('navToolbar', { template: require('./navToolbar/navToolbar.html') })
   .controller('AppCtrl', AppCtrl)

@@ -1,84 +1,91 @@
 <md-content>
   <nav-toolbar></nav-toolbar>
   <div class="employeeReportContainer">
-      <div layout="row">
-          <div flex>
-              <md-input-container class="md-block" flex-gt-sm>
-                <label>Prediction Period</label>
-                <md-datepicker ng-model="user.myDate" md-placeholder="Enter date"></md-datepicker>
-              </md-input-container>
+    <div layout="row">
+      <div flex>
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Prediction Period</label>
+          <md-datepicker ng-model="user.myDate" md-placeholder="Enter date"></md-datepicker>
+        </md-input-container>
+      </div>
+      <div flex>
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Prediction Period</label>
+          <md-select ng-model="user.duration">
+            <md-option value="6 Months">
+              6 Months
+            </md-option>
+            <md-option value="1 Month">
+              1 Month
+            </md-option>
+          </md-select>
+        </md-input-container>
+      </div>
+    </div>
+
+    <div layout="row">
+      <md-content laout="column" flex ng-controller="employeeTableController">
+        <md-card>
+          <md-toolbar class="md-table-toolbar md-default" ng-hide="options.rowSelection && selected.length">
+            <div class="md-toolbar-tools">
+              <span>Employee Attrition Prediction</span>
+              <div flex></div>
+              <md-button class="md-icon-button" ng-click="loadStuff()">
+                <md-icon>refresh</md-icon>
+              </md-button>
             </div>
-        <div flex>
-          <md-input-container class="md-block" flex-gt-sm>
-            <label>Prediction Period</label>
-            <md-select ng-model="user.duration">
-              <md-option value="6 Months">
-                6 Months
-              </md-option>
-              <md-option value="1 Month">
-                1 Month
-              </md-option>
-            </md-select>
-          </md-input-container>
-        </div>
-      </div>
-    
-      <div layout="row">
-          <md-content laout="column" flex ng-controller="employeeTableController">
-              <md-card>
-                <md-toolbar class="md-table-toolbar md-default" ng-hide="options.rowSelection && selected.length">
-                  <div class="md-toolbar-tools">
-                    <span>Employee Attrition Prediction</span>
-                    <div flex></div>
-                    <md-button class="md-icon-button" ng-click="loadStuff()">
-                      <md-icon>refresh</md-icon>
-                    </md-button>
-                  </div>
-                </md-toolbar>
-                
-                <md-toolbar class="md-table-toolbar alternate" ng-show="options.rowSelection && selected.length">
-                  <div class="md-toolbar-tools">
-                    <span>{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected</span>
-                  </div>
-                </md-toolbar>
-                
-                <md-table-container>
-                  <table md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise">
-                    <thead ng-if="!options.decapitate" md-head md-order="query.order">
-                      <tr md-row>
-                        <th md-column md-order-by="name"><span>Employee Name</span></th>
-                        <th md-column md-order-by="type"><span>Probability of Leaving the company</span></th>
-                        <th md-column md-numeric md-order-by="calories.value" md-desc><span>Fire vs Quit</span></th>
-                        <th md-column md-order-by="comment">
-                          <md-icon>comments</md-icon>
-                          <span>Comments</span>
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody md-body>
-                      <tr md-row md-select="employee" md-auto-select="options.autoSelect" ng-repeat="employee in tableData.data | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
-                        <td md-cell>{{employee.name}}</td>
-                        <td md-cell> 
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="50"
-                                aria-valuemin="0" aria-valuemax="100" style="width:50%">
-                                  50% Complete (info)
-                                </div>
-                              </div>
-                        </td>
-                        <td md-cell>{{employee.name}}</td>
-                        <td md-cell ng-click="editComment($event, employee)" ng-class="{'md-placeholder': !employee.comment}">
-                          {{employee.comment || 'Add a comment'}}
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </md-table-container>
-        
-                <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{tableData.count}}" md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks"></md-table-pagination>
-              </md-card>
-            </md-content>
-      </div>
+          </md-toolbar>
+
+          <md-toolbar class="md-table-toolbar alternate" ng-show="options.rowSelection && selected.length">
+            <div class="md-toolbar-tools">
+              <span>{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected</span>
+            </div>
+          </md-toolbar>
+
+          <md-table-container>
+            <table md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise">
+              <thead ng-if="!options.decapitate" md-head md-order="query.order">
+                <tr md-row>
+                  <th md-column md-order-by="name"><span>Employee Name</span></th>
+                  <th md-column md-order-by="type"><span>Probability of Leaving the company</span></th>
+                  <th class="columnCenter" md-column md-numeric md-desc><span>Fire vs Quit</span></th>
+                  <th md-column md-order-by="comment">
+                    <md-icon>comments</md-icon>
+                    <span>Comments</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody md-body>
+                <tr md-row md-select="employee" md-auto-select="options.autoSelect" ng-repeat="employee in tableData.data | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                  <td md-cell>{{employee.name}}</td>
+                  <td md-cell>
+                    <div class="progress">
+                      <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:50%">
+                        50% Complete (info)
+                      </div>
+                    </div>
+                  </td>
+                  <td md-cell>
+                      <div style="height:50px;width:100px;margin: auto;">
+                          <canvas 
+                          class="chart chart-pie" chart-colors="colors" chart-data="data" chart-labels="labels" >
+                          </canvas>
+                      </div>
+                      
+                  </td>
+                  <td md-cell ng-click="editComment($event, employee)" ng-class="{'md-placeholder': !employee.comment}">
+                    {{employee.comment || 'Add a comment'}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </md-table-container>
+
+          <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{tableData.count}}"
+            md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks"></md-table-pagination>
+        </md-card>
+      </md-content>
+    </div>
   </div>
-  
+
 </md-content>

@@ -12,11 +12,14 @@ export function employeeTableController($mdEditDialog, $q, $scope,$http, $timeou
       var firstFive = idArr.splice(0,5);
       $http.get(`https://td-predictions-staging.herokuapp.com/fire-quit-in-6m/2018-06-01/?user_ids=${firstFive.join()}`).then(
           function(response){
+            console.log($scope.tableData);
             console.log(response);
           }
         )
     }
-    
+    $scope.colors = ["rgb(159,204,0)","rgb(250,109,33)"];          
+    $scope.labels = ["Fire", "Quit"];
+    $scope.data = [20,80];
     
     $scope.selected = [];
     $scope.limitOptions = [5, 10, 15];
