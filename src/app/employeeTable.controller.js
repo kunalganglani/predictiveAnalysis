@@ -1,9 +1,33 @@
-export function employeeTableController($mdEditDialog, $q, $scope, $http, $timeout, myService, $mdDialog) {
+export function employeeTableController($mdEditDialog, $q, $scope, $http, $timeout, myService, $mdDialog, $localForage) {
   'use strict';
   function onInit() {
-    getUserData();  
-  }
+    // if(!$localForage.getItem('allUserNameAndId')){
+    //   getUserData();  
+    // }
+    $localForage.getItem('allUserNameAndId').then( value => {
+      // console.log(value)
+      if(value === null){
+        getUserData(); 
+      }else {
+        $scope.tableData = (value);
+        $scope.success = true;
+        getMoreInfo();
+      }
+    });
+    }
   onInit();
+  function getMoreInfo() {
+    let empArr = $scope.tableData.data.sort(function compare(a,b) {
+      if (a.name < b.name)
+        return -1;
+      if (a.name > b.name)
+        return 1;
+      return 0;
+    })
+    empArr.map(item => {
+      getUserStatistics(item.id)
+    });
+  }
   function getUserData() {
     $scope.success = false,
     $scope.error = false;
@@ -12,17 +36,9 @@ export function employeeTableController($mdEditDialog, $q, $scope, $http, $timeo
         count: response.data.length,
         data: response.data
       };
+      $localForage.setItem('allUserNameAndId',$scope.tableData);
       $scope.success = true;
-      let empArr = $scope.tableData.data.sort(function compare(a,b) {
-        if (a.name < b.name)
-          return -1;
-        if (a.name > b.name)
-          return 1;
-        return 0;
-      })
-      empArr.map(item => {
-        getUserStatistics(item.id)
-      });
+      getMoreInfo();
       // console.log(empArr);  
     }; 
     let errorHandler = function (reason) {
