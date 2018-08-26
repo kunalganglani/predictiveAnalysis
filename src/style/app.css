@@ -28,3 +28,10 @@ thead th.columnCenter.md-column.ng-isolate-scope.md-numeric{
 .progress-bar.progress-bar-info.ng-binding{
   color: darkblue;
 }
+.tableDataMessage{
+  position: relative;
+  top: 30%;
+}
+.centerAlignText {
+  text-align: center;
+}
