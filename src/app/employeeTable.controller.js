@@ -1,11 +1,7 @@
 export function employeeTableController($mdEditDialog, $q, $scope, $http, $timeout, myService, $mdDialog, $localForage) {
   'use strict';
   function onInit() {
-    // if(!$localForage.getItem('allUserNameAndId')){
-    //   getUserData();  
-    // }
     $localForage.getItem('allUserNameAndId').then( value => {
-      // console.log(value)
       if(value === null){
         getUserData(); 
       }else {
@@ -25,7 +21,14 @@ export function employeeTableController($mdEditDialog, $q, $scope, $http, $timeo
       return 0;
     })
     empArr.map(item => {
-      getUserStatistics(item.id)
+      $localForage.getItem('infoFor'+item.id).then( value => {
+        if(value === null){
+          getUserStatistics(item.id)
+        }else {
+          item.info = value;
+          item.success = true;    
+        }
+      });
     });
   }
   function getUserData() {
@@ -39,7 +42,6 @@ export function employeeTableController($mdEditDialog, $q, $scope, $http, $timeo
       $localForage.setItem('allUserNameAndId',$scope.tableData);
       $scope.success = true;
       getMoreInfo();
-      // console.log(empArr);  
     }; 
     let errorHandler = function (reason) {
       $scope.somethingWrong = reason.stausText || "Internal Server Error";
@@ -70,6 +72,7 @@ export function employeeTableController($mdEditDialog, $q, $scope, $http, $timeo
       let successHandler = function (response) {
         employee.info = response.data[employee.id];
         employee.success = true;
+        $localForage.setItem('infoFor'+employee.id, employee.info);
       }; 
       let errorHandler = function (reason) {
         employee.somethingWrong = reason.stausText || "Internal Server Error";
@@ -146,10 +149,6 @@ export function employeeTableController($mdEditDialog, $q, $scope, $http, $timeo
   $scope.toggleLimitOptions = function () {
     $scope.limitOptions = $scope.limitOptions ? undefined : [5, 10, 15];
   };
-  $scope.getEmpLeavingProbab = function (emp) {
-    getUserStatistics(emp.id);
-    return emp.id;
-  }
   $scope.getChartData = function (employee) {
     return [20, 50];
   }
