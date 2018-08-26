@@ -13,6 +13,17 @@ export function employeeTableController($mdEditDialog, $q, $scope, $http, $timeo
         data: response.data
       };
       $scope.success = true;
+      let empArr = $scope.tableData.data.sort(function compare(a,b) {
+        if (a.name < b.name)
+          return -1;
+        if (a.name > b.name)
+          return 1;
+        return 0;
+      })
+      empArr.map(item => {
+        getUserStatistics(item.id)
+      });
+      // console.log(empArr);  
     }; 
     let errorHandler = function (reason) {
       $scope.somethingWrong = reason.stausText || "Internal Server Error";
