@@ -21,3 +21,7 @@ footer {
 thead th.columnCenter.md-column.ng-isolate-scope.md-numeric{
   text-align: center;
 }
+.centerHorizontally {
+  position: relative;
+  transform: translateY(50%);
+}

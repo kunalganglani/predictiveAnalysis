@@ -59,7 +59,7 @@
                 <tr md-row md-select="employee" md-auto-select="options.autoSelect" ng-repeat="employee in tableData.data | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
                   <td md-cell>{{employee.name}}</td>
                   <td md-cell>
-                    <div class="progress">
+                    <div class="progress centerHorizontally">
                       <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:50%">
                         50% Complete (info)
                       </div>
