@@ -15,7 +15,7 @@ const appModule = 'app';
 angular.module(appModule, [
   'ngMaterial', 'ngRoute', 'md.data.table','chart.js'
 ]).directive('app', app)
-.service('myService', ['$http', '$q', getUserDataService])
+  .service('myService', ['$http', '$q', getUserDataService])
   .component('navToolbar', { template: require('./navToolbar/navToolbar.html') })
   .controller('AppCtrl', AppCtrl)
   .controller('employeeTableController', ['$mdEditDialog', '$q', '$scope', '$http', '$timeout', 'myService', '$mdDialog', employeeTableController])

@@ -25,3 +25,6 @@ thead th.columnCenter.md-column.ng-isolate-scope.md-numeric{
   position: relative;
   transform: translateY(50%);
 }
+.progress-bar.progress-bar-info.ng-binding{
+  color: darkblue;
+}

@@ -32,6 +32,26 @@ export function employeeTableController($mdEditDialog, $q, $scope, $http, $timeo
       errorHandler
     )
   }
+  function getUserStatistics(employeeId) {
+    let employee = $scope.tableData.data.filter(item => {
+      return item.id == employeeId
+      })[0];
+      employee.success = false,
+      employee.error = false;
+    let successHandler = function (response) {
+      employee.info = response.data[employee.id];
+      employee.success = true;
+    }; 
+    let errorHandler = function (reason) {
+      employee.somethingWrong = reason.stausText || "Internal Server Error";
+      employee.error = true;
+    }; 
+    let askForPromise = myService.getUserInfo(employeeId);
+    askForPromise.then(
+      successHandler,
+      errorHandler
+    )
+  }
   $scope.data = [20,80];
   $scope.colors = ["rgb(159,204,0)", "rgb(250,109,33)"];
   $scope.labels = ["Fire", "Quit"];
@@ -97,6 +117,7 @@ export function employeeTableController($mdEditDialog, $q, $scope, $http, $timeo
     $scope.limitOptions = $scope.limitOptions ? undefined : [5, 10, 15];
   };
   $scope.getEmpLeavingProbab = function (emp) {
+    getUserStatistics(emp.id);
     return emp.id;
   }
   $scope.getChartData = function (employee) {
