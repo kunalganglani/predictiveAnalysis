@@ -36,21 +36,24 @@ export function employeeTableController($mdEditDialog, $q, $scope, $http, $timeo
     let employee = $scope.tableData.data.filter(item => {
       return item.id == employeeId
       })[0];
+     
+    if(!employee.info){
       employee.success = false,
       employee.error = false;
-    let successHandler = function (response) {
-      employee.info = response.data[employee.id];
-      employee.success = true;
-    }; 
-    let errorHandler = function (reason) {
-      employee.somethingWrong = reason.stausText || "Internal Server Error";
-      employee.error = true;
-    }; 
-    let askForPromise = myService.getUserInfo(employeeId);
-    askForPromise.then(
-      successHandler,
-      errorHandler
-    )
+      let successHandler = function (response) {
+        employee.info = response.data[employee.id];
+        employee.success = true;
+      }; 
+      let errorHandler = function (reason) {
+        employee.somethingWrong = reason.stausText || "Internal Server Error";
+        employee.error = true;
+      }; 
+      let askForPromise = myService.getUserInfo(employeeId);
+      askForPromise.then(
+        successHandler,
+        errorHandler
+      )
+    }
   }
   $scope.data = [20,80];
   $scope.colors = ["rgb(159,204,0)", "rgb(250,109,33)"];
