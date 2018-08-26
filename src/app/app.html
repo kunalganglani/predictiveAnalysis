@@ -25,6 +25,8 @@
 
     <div layout="row">
       <md-content laout="column" flex ng-controller="employeeTableController">
+        <!-- <div ng-show="success">{{ somethingRight }}</div> -->
+        <div ng-show="error">{{ somethingWrong }}</div>
         <md-card>
           <md-toolbar class="md-table-toolbar md-default" ng-hide="options.rowSelection && selected.length">
             <div class="md-toolbar-tools">
@@ -61,7 +63,7 @@
                   <td md-cell>
                     <div class="progress centerHorizontally">
                       <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:50%">
-                        50% Complete (info)
+                        {{getEmpLeavingProbab(employee)}} %
                       </div>
                     </div>
                   </td>
@@ -70,6 +72,7 @@
                           <canvas 
                           class="chart chart-pie" chart-colors="colors" chart-data="data" chart-labels="labels" >
                           </canvas>
+                          <!-- getChartData(employee) -->
                       </div>
                       
                   </td>
