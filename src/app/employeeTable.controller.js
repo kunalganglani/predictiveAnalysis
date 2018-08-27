@@ -1,5 +1,5 @@
 function employeeTableController($mdEditDialog, $q, $scope,
-  $http, $timeout, myService, $mdDialog, $localForage) {
+  $timeout, myService, $mdDialog, $localForage) {
   function getUserStatistics(employeeId) {
     const employee = $scope.tableData.data.filter(item => item.id === employeeId)[0];
     if (!employee.info) {

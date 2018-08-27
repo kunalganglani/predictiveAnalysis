@@ -27,8 +27,8 @@ angular.module(appModule, [
 ]).directive('app', app)
   .service('myService', ['$http', '$q', getUserDataService])
   .component('navToolbar', { template: navToolBarHTML })
-  .controller('AppCtrl', AppCtrl)
-  .controller('employeeTableController', ['$mdEditDialog', '$q', '$scope', '$http', '$timeout', 'myService', '$mdDialog', '$localForage', employeeTableController])
+  .controller('AppCtrl', ['$scope', AppCtrl])
+  .controller('employeeTableController', ['$mdEditDialog', '$q', '$scope', '$timeout', 'myService', '$mdDialog', '$localForage', employeeTableController])
   .config(['$mdThemingProvider', function themeProviderFn($mdThemingProvider) {
     $mdThemingProvider.theme('default')
       .primaryPalette('blue');

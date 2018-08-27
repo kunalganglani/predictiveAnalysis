@@ -30,7 +30,8 @@
     "angular-material-data-table": "^0.10.10",
     "angular-messages": "^1.7.3",
     "angular-route": "^1.7.3",
-    "editorconfig": "^0.15.0"
+    "editorconfig": "^0.15.0",
+    "firebase": "^5.4.1"
   },
   "devDependencies": {
     "ajv": "^6.4.0",

@@ -2,7 +2,7 @@ function getUserDataService($http, $q) {
   const failCounter = {};
   const myMethods = {
     getPromise() {
-      const promise = $http.get('http://localhost:5050/users');
+      const promise = $http.get('https://employee-attrition-prediction.firebaseio.com/users.json');
 
       // deferObjects ||
       const deferObject = $q.defer();
