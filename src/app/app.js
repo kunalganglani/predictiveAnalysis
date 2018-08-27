@@ -3,7 +3,7 @@ require('angular-chart.js');
 require('angular-localforage');
 import { AppCtrl } from './app.controller';
 import { getUserDataService } from './service/getUserDataService';
-import { employeeTableController } from './employeeTable.controller';
+import  employeeTableController from './employeeTable.controller';
 import '../style/app.css';
 let app = () => {
   return {

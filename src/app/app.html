@@ -62,7 +62,7 @@
                   <td md-cell>{{employee.name}}</td>
                   <td md-cell>
                     <div class="progress centerHorizontally">
-                      <div ng-show="employee.success" class="progress-bar progress-bar-info" role="progressbar" 
+                      <div ng-show="employee.success" class="progress-bar progress-bar-info" role="progressbar"
                       ng-style="{'width':(employee.info.raw_score_stay_left_6m * 10).toFixed(1)+'%'}"
                       aria-valuemin="0" aria-valuemax="100">
                         {{(employee.info.raw_score_stay_left_6m * 10).toFixed(1) }}%
@@ -73,15 +73,14 @@
                       <div ng-show="employee.success" class="centerAlignText" style="height:50px;width:100px;margin: auto;">
                         <span class="tableDataMessage" ng-show="employee.info.final_fired_prob_6m === null">Insufficient data</span>
                         <span class="tableDataMessage" ng-show ="employee.info.final_fired_prob_6m ===0 && employee.info.final_quit_prob_6m ==0">No chances</span>
-                        
+
                         <canvas ng-show="employee.info.final_fired_prob_6m !== null && employee.info.final_fired_prob_6m !== 0"
-                          class="chart chart-pie" chart-colors="colors" 
-                          chart-data="[( (employee.info.final_fired_prob_6m * 10).toFixed(1) ), ( (employee.info.final_quit_prob_6m * 10).toFixed(1)  )]" 
+                          class="chart chart-pie" chart-colors="colors"
+                          chart-data="[( (employee.info.final_fired_prob_6m * 10).toFixed(1) ), ( (employee.info.final_quit_prob_6m * 10).toFixed(1)  )]"
                           chart-labels="labels" >
                           </canvas>
-                          <!-- getChartData(employee) -->
                       </div>
-                      
+
                   </td>
                   <td md-cell ng-click="editComment($event, employee)" ng-class="{'md-placeholder': !employee.comment}">
                     {{employee.comment || 'Add a comment'}}
