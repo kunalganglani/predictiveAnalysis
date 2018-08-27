@@ -3,7 +3,8 @@ function employeeTableController($mdEditDialog, $q, $scope,
   function getUserStatistics(employeeId) {
     const employee = $scope.tableData.data.filter(item => item.id === employeeId)[0];
     if (!employee.info) {
-      employee.success = false,
+      /* eslint-disable no-unused-expressions */
+      employee.success = false;
       employee.error = false;
       const successHandler = function userStatSuccessHandler(response) {
         employee.info = response.data[employee.id];
@@ -32,11 +33,12 @@ function employeeTableController($mdEditDialog, $q, $scope,
       }
       return 0;
     });
-    empArr.map((item) => {
+    empArr.forEach((item) => {
       $localForage.getItem(`infoFor${item.id}`).then((value) => {
         if (value === null) {
           getUserStatistics(item.id);
         } else {
+          /* eslint-disable no-param-reassign */
           item.info = value;
           item.success = true;
         }
@@ -45,8 +47,9 @@ function employeeTableController($mdEditDialog, $q, $scope,
   }
 
   function getUserData() {
-    $scope.success = false,
-      $scope.error = false;
+    /* eslint-disable no-unused-expressions */
+    $scope.success = false;
+    $scope.error = false;
     const successHandler = function successHandler(response) {
       $scope.tableData = {
         count: response.data.length,
@@ -114,14 +117,15 @@ function employeeTableController($mdEditDialog, $q, $scope,
       placeholder: 'Add a comment',
       save(input) {
         if (input.$modelValue === 'Donald Trump') {
-          input.$invalid = true;
+          input.$invalid = true; // eslint-disable-line no-param-reassign
           return $q.reject();
         }
         if (input.$modelValue === 'Bernie Sanders') {
-          employee.comment = 'FEEL THE BERN!';
+          employee.comment = 'FEEL THE BERN!'; // eslint-disable-line no-param-reassign
           return employee.comment;
         }
-        employee.comment = input.$modelValue;
+        employee.comment = input.$modelValue; // eslint-disable-line no-param-reassign
+        return employee.comment;
       },
       targetEvent: event,
       title: 'Add a comment',
