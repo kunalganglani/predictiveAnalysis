@@ -35,3 +35,6 @@ thead th.columnCenter.md-column.ng-isolate-scope.md-numeric{
 .centerAlignText {
   text-align: center;
 }
+.progress.centerHorizontally{
+  background-color: rgb(189,189,189);
+}

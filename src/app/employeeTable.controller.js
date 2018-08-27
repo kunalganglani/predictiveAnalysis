@@ -12,7 +12,7 @@ function employeeTableController($mdEditDialog, $q, $scope,
         $localForage.setItem(`infoFor${employee.id}`, employee.info);
       };
       const errorHandler = function userStatErrorHandler(reason) {
-        employee.somethingWrong = reason.stausText || 'Internal Server Error';
+        employee.somethingWrong = reason.statusText || 'Internal Server Error';
         employee.error = true;
       };
       const askForPromise = myService.getUserInfo(employeeId);

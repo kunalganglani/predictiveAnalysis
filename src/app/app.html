@@ -11,11 +11,11 @@
       <div flex>
         <md-input-container class="md-block" flex-gt-sm>
           <label>Prediction Period</label>
-          <md-select ng-model="user.duration">
-            <md-option value="6 Months">
+          <md-select ng-model="user.duration" ng-change="switchDuration()">
+            <md-option value="raw_score_stay_left_6m">
               6 Months
             </md-option>
-            <md-option value="1 Month">
+            <md-option value="raw_score_stay_left_1m">
               1 Month
             </md-option>
           </md-select>
@@ -24,8 +24,7 @@
     </div>
 
     <div layout="row">
-      <md-content laout="column" flex ng-controller="employeeTableController">
-        <!-- <div ng-show="success">{{ somethingRight }}</div> -->
+      <md-content layout="column" flex ng-controller="employeeTableController">
         <div ng-show="error">{{ somethingWrong }}</div>
         <md-card>
           <md-toolbar class="md-table-toolbar md-default" ng-hide="options.rowSelection && selected.length">
@@ -62,21 +61,25 @@
                   <td md-cell>{{employee.name}}</td>
                   <td md-cell>
                     <div class="progress centerHorizontally">
-                      <div ng-show="employee.success" class="progress-bar progress-bar-info" role="progressbar"
-                      ng-style="{'width':(employee.info.raw_score_stay_left_6m * 10).toFixed(1)+'%'}"
+                      <div ng-show="employee.success" class="progress-bar" role="progressbar"
+                      ng-style="{'width':(employee.info[user.duration]* 10).toFixed(1)+'%'}"
+                      ng-class="{'progress-bar-danger': (employee.info[user.duration] * 10).toFixed(1)<30,
+                      'progress-bar-warning': (employee.info[user.duration] * 10).toFixed(1)>=30 && (employee.info[user.duration] * 10).toFixed(1)<50,
+                      'progress-bar-success': (employee.info[user.duration] * 10).toFixed(1)>50,
+                      }"
                       aria-valuemin="0" aria-valuemax="100">
-                        {{(employee.info.raw_score_stay_left_6m * 10).toFixed(1) }}%
+                        {{(employee.info[user.duration]* 10).toFixed(1) }}%
                       </div>
                     </div>
                   </td>
                   <td md-cell>
                       <div ng-show="employee.success" class="centerAlignText" style="height:50px;width:100px;margin: auto;">
-                        <span class="tableDataMessage" ng-show="employee.info.final_fired_prob_6m === null">Insufficient data</span>
-                        <span class="tableDataMessage" ng-show ="employee.info.final_fired_prob_6m ===0 && employee.info.final_quit_prob_6m ==0">No chances</span>
+                        <span class="tableDataMessage" ng-show="employee.info[fireKey] === null">Insufficient data</span>
+                        <span class="tableDataMessage" ng-show ="employee.info[fireKey] ===0 && employee.info[quitKey] ==0">No chances</span>
 
-                        <canvas ng-show="employee.info.final_fired_prob_6m !== null && employee.info.final_fired_prob_6m !== 0"
+                        <canvas ng-show="employee.info[fireKey] !== null && employee.info[fireKey] !== 0"
                           class="chart chart-pie" chart-colors="colors"
-                          chart-data="[( (employee.info.final_fired_prob_6m * 10).toFixed(1) ), ( (employee.info.final_quit_prob_6m * 10).toFixed(1)  )]"
+                          chart-data="[( (employee.info[fireKey] * 10).toFixed(1) ), ( (employee.info[quitKey] * 10).toFixed(1)  )]"
                           chart-labels="labels" >
                           </canvas>
                       </div>

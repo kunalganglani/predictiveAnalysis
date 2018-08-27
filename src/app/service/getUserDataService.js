@@ -1,45 +1,57 @@
-export function getUserDataService($http, $q) {
-  var deferObject,
-    myMethods = {
+function getUserDataService($http, $q) {
+  const failCounter = {};
+  const myMethods = {
+    getPromise() {
+      const promise = $http.get('http://localhost:5050/users');
 
-      getPromise: function () {
-        var promise = $http.get('http://localhost:3000/users'),
-          deferObject = deferObject || $q.defer();
+      // deferObjects ||
+      const deferObject = $q.defer();
 
-        promise.then(
-          // OnSuccess function
-          function (answer) {
-            // This code will only run if we have a successful promise.
-            deferObject.resolve(answer);
-          },
-          // OnFailure function
-          function (reason) {
-            // This code will only run if we have a failed promise.
-            deferObject.reject(reason);
-          });
+      promise.then(
+        // OnSuccess function
+        (answer) => {
+          // This code will only run if we have a successful promise.
+          deferObject.resolve(answer);
+        },
+        // OnFailure function
+        (reason) => {
+          // This code will only run if we have a failed promise.
+          deferObject.reject(reason);
+        },
+      );
 
-        return deferObject.promise;
-      },
-      getUserInfo: function (empId) {
-        var promise = $http.get(`https://td-predictions-staging.herokuapp.com/fire-quit-in-6m/2018-06-01/?user_ids=${empId}`),
-          deferObject = deferObject || $q.defer();
+      return deferObject.promise;
+    },
+    getUserInfo(empId) {
+      const promise = $http.get(`https://td-predictions-staging.herokuapp.com/fire-quit-in-6m/2018-06-01/?user_ids=${empId}`);
 
-        promise.then(
-          // OnSuccess function
-          function (answer) {
-            // This code will only run if we have a successful promise.
-            deferObject.resolve(answer);
-          },
-          // OnFailure function
-          function (reason) {
-            // This code will only run if we have a failed promise.
-            deferObject.reject(reason);
-          });
+      // deferObjects ||
+      const deferObject = $q.defer();
 
-        return deferObject.promise;
-      }
-    };
-
+      promise.then(
+        // OnSuccess function
+        (answer) => {
+          // This code will only run if we have a successful promise.
+          deferObject.resolve(answer);
+        },
+        // OnFailure function
+        () => {
+          if (Object.prototype.hasOwnProperty.call(failCounter, empId)) {
+            failCounter.empId = 0;
+          }
+          // console.log(reason);
+          if (failCounter.empId < 3) {
+            this.getUserInfo(empId);
+            failCounter.empId += 1;
+          }
+          // This code will only run if we have a failed promise.
+          // deferObject.reject(reason);
+        },
+      );
+      return deferObject.promise;
+    },
+  };
   return myMethods;
-
 }
+
+export default getUserDataService;

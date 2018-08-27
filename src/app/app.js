@@ -1,13 +1,20 @@
 import angular from 'angular';
 import appHTML from './app.html';
 import navToolBarHTML from './navToolbar/navToolbar.html';
-import { AppCtrl } from './app.controller';
-import { getUserDataService } from './service/getUserDataService';
+import AppCtrl from './app.controller';
+import getUserDataService from './service/getUserDataService';
 import employeeTableController from './employeeTable.controller';
 import '../style/app.css';
 
+require('angular-animate');
+require('angular-aria');
+require('angular-messages');
+require('angular-route');
+require('angular-material');
+require('angular-material-data-table');
 require('angular-chart.js');
 require('angular-localforage');
+
 
 const app = () => ({
   template: appHTML,
