@@ -14,7 +14,9 @@ require('angular-material');
 require('angular-material-data-table');
 require('angular-chart.js');
 require('angular-localforage');
-
+require('offline-js');
+require('offline-js/themes/offline-language-english.css');
+require('offline-js/themes/offline-theme-slide.css');
 
 const app = () => ({
   template: appHTML,
