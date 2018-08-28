@@ -16,3 +16,10 @@ Sortable columns
 Airbnb JavaScript coding styles
 Progress bar color coded for danger, wanring and success with red, orange and green respectively
 Retry request 3 times if backend request fails
+Angular Material Used
+Sortable Columns
+
+Additions Tasks achieved: 
+Comments columns
+Service Error handled with mat alert
+Application deployed on Firebase with Realtime database
