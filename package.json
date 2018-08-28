@@ -14,12 +14,12 @@
     "type": "git",
     "url": "https://github.com/kunalganglani/predictiveAnalysis.git"
   },
-  "author": "Jesus Rodriguez",
+  "author": "Kunal Ganglani",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/preboot/angularjs-webpack/issues"
   },
-  "homepage": "https://github.com/preboot/angularjs-webpack",
+  "homepage": "http://tinyurl.com/hrkunal",
   "dependencies": {
     "angular": "^1.7.0",
     "angular-animate": "^1.7.3",

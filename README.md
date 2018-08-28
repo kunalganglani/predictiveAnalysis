@@ -24,6 +24,7 @@ Additions Tasks achieved:
 * Comments columns
 * Service Error handled with mat alert
 * Application deployed on Firebase with Realtime database
+* Application displays notification when offline and attempts reconnection automatically
 
 In case of any queries, please feel free to reach out to kunalganglani@gmail.com  
 
