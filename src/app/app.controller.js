@@ -1,6 +1,5 @@
 export default class AppCtrl {
   constructor($scope) {
-    this.url = 'https://github.com/preboot/angular-webpack';
     $scope.fireKey = 'final_fired_prob_6m';
     $scope.quitKey = 'final_quit_prob_6m';
     $scope.user = {
