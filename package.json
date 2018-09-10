@@ -73,5 +73,11 @@
     "style-loader": "^0.21.0",
     "webpack": "^2.7.0",
     "webpack-dev-server": "^2.11.2"
+  },
+  "eslintConfig": {
+    "globals": {
+      "element": true,
+      "expect": true
+    }
   }
 }
