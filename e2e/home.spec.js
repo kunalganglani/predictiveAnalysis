@@ -40,7 +40,7 @@ describe('Angular Predictive Analysis -', () => {
     });
 
     it('should have the required table headings', () => {
-      // Act
+      // Arrange
       const tableHeadings = element.all(by.css('table')).first().getText();
 
       // Assert
