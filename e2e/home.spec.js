@@ -38,5 +38,13 @@ describe('Angular Predictive Analysis -', () => {
     it('should by default have 5 rows in the table', () => {
       expect(element.all(by.css('table')).first().all(by.css('th')).count()).toBe(5);
     });
+
+    it('should have the required table headings', () => {
+      // Act
+      const tableHeadings = element.all(by.css('table')).first().getText();
+
+      // Assert
+      expect(tableHeadings).toEqual('Employee Name\nProbability of Leaving the company\nFire vs Quit comments Comments');
+    });
   });
 });
