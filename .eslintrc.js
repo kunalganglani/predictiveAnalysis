@@ -3,6 +3,7 @@ module.exports = {
     "expect": true,
     "element": true,
     "browser": true,
+    "by": true
   },
   "env": {
     "commonjs": true,
