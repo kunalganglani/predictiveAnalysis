@@ -26,6 +26,17 @@ Additions Tasks achieved:
 * Application deployed on Firebase with Realtime database
 * Application displays notification when offline and attempts reconnection automatically
 
+STEPS TO RUN E2E Test Cases:
+The end to end test cases are writtin with protractor, in order to run the e2e test cases, Please follow the following step:
+
+1. Open terminal
+2. Run command: npm install -g protractor
+2. Run command: webdriver-manager update
+3. Run command: webdriver-manager start
+4. Finally, to run the test case, Run command: npm run e2e
+
+
+
 In case of any queries, please feel free to reach out to kunalganglani@gmail.com  
 
 Cheers!  
