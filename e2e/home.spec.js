@@ -1,5 +1,5 @@
 describe('Angular Predictive Analysis -', () => {
-  browser.get('https://employee-attrition-prediction.firebaseapp.com/');
+  browser.get('http://localhost:8080/');
   browser.ignoreSynchronization = true;
   describe('Home Page', () => {
     it('should have default date selection as currect date', () => {
